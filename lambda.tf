@@ -1,8 +1,14 @@
+data "archive_file" "src" {
+  type        = "zip"
+  source_dir  = "${path.root}/python_slack_client" # Directory where your Python source code is
+  output_path = "${path.root}/slack_alerting.zip"
+}
+
+
 resource "aws_lambda_function" "send_message_slack" {
-  function_name = "send_message_slack_${local.env_type}"
+  function_name = "send_message_slack"
   role          = aws_iam_role.slack_alerting_lambda_role.arn
-  s3_bucket     = var.lambda_s3_bucket
-  s3_key        = "slack_alerting.zip"
+  filename      = "${path.root}/slack_alerting.zip"
   handler       = "main.lambda_handler"
   timeout       = 60
   memory_size   = 256
@@ -17,6 +23,7 @@ resource "aws_lambda_function" "send_message_slack" {
   }
 
   depends_on = [
+    data.archive_file.src,
     aws_iam_role_policy_attachment.sqs_permissions,
     aws_iam_role_policy_attachment.attach_basic_role_to_slack_lambda,
   ]

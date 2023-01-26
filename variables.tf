@@ -18,7 +18,3 @@ variable "slack_username" {
 variable "ecs_cluster_name" {
   type = string
 }
-
-variable "lambda_s3_bucket" {
-  type = string
-}
