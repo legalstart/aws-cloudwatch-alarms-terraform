@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_metric_alarm" "monitor_core_api_cpu_usage" {
+resource "aws_cloudwatch_metric_alarm" "monitor_cpu_usage" {
   alarm_name                = "monitor-ec2-instance"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "2"

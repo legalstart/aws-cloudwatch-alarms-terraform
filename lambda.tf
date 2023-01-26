@@ -17,7 +17,7 @@ resource "aws_lambda_function" "send_message_slack" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.sqs_permissions_to_core_api,
+    aws_iam_role_policy_attachment.sqs_permissions,
     aws_iam_role_policy_attachment.attach_basic_role_to_slack_lambda,
   ]
 }
